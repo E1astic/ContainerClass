@@ -1,16 +1,30 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main
 {
     public static void main(String[] args)
     {
-        Node<String>a=new Node<>("hello");
-        Node<String>a1=new Node<>("hello");
-        Node<String>b=new Node<>("everyone");
-        Node<String>c=new Node<>("!!!");
+        Container<Integer> container=new Container<>(1);
+        container.append(2);
+        container.append(3);
+        container.addToHead(0);
+        container.addToHead(-1);
+        container.append(4);
+        container.printContainer();
+        System.out.println();
 
-        a.next=b;
-        a1.next=b;
 
-        System.out.println(a.equals(a1));
+        container.removeFromHead();
+        int ind= container.search(1);
+        container.removeByIndex(ind);
+        int ind1= container.search(4);
+        container.removeByIndex(ind1);
+        int ind2= container.search(2);
+        container.removeByIndex(ind2);
+
+        container.printContainer();
+        System.out.println();
 
     }
 }

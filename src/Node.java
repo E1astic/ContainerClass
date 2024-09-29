@@ -40,6 +40,7 @@ public class Node<T>{
         Node other=(Node)obj;
         if(this.value.equals(other.value) && this.prev==other.prev && this.next==other.next)
             return true;
+
         return false;
     }
 }

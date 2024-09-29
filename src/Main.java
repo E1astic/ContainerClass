@@ -5,26 +5,44 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Container<Integer> container=new Container<>(1);
-        container.append(2);
-        container.append(3);
-        container.addToHead(0);
-        container.addToHead(-1);
-        container.append(4);
-        container.printContainer();
-        System.out.println();
+        //ДОБАВЛЕНИЕ
+        Container<String> container=new Container<>();
+        container.append("first");
+        container.addToHead("second");
+        container.append("third");
+        System.out.print("after inserts: ");
+        container.print();
 
+        //УДАЛЕНИЕ
+        container.removeByIndex(0);
+        int indFirst=container.search("first");
+        if(indFirst!=-1)
+            container.removeByIndex(indFirst);
+        System.out.print("after removes: ");
+        container.print();
 
-        container.removeFromHead();
-        int ind= container.search(1);
-        container.removeByIndex(ind);
-        int ind1= container.search(4);
-        container.removeByIndex(ind1);
-        int ind2= container.search(2);
-        container.removeByIndex(ind2);
+        //ДОБАВЛЕНИЕ
+        container.addToHead("fourth");
+        container.append("fifth");
+        System.out.print("after inserts: ");
+        container.print();
+        System.out.print("revers after inserts: ");
+        container.printReverse();
 
-        container.printContainer();
-        System.out.println();
+        //ПОИСК
+        int indThird=container.search("third");
+        if(indThird!=-1)
+            container.insert(indThird, "777");
+        container.print();
+
+        //ОЧИСТКА
+        System.out.print("before clear: ");
+        System.out.println(container.isEmpty());
+        container.clearContainer();
+        System.out.print("after clear: ");
+        System.out.println(container.isEmpty());
+        container.print();
+
 
     }
 }

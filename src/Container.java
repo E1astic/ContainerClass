@@ -79,6 +79,38 @@ public class Container <T>
         ++size;
     }
 
+    public void insert(int ind, T val)
+    {
+        if(ind>=size || ind<0)
+            throw new IndexOutOfBoundsException();
+
+        if(ind==0)
+        {
+            addToHead(val);
+            return;
+        }
+        if(ind==size-1)
+        {
+            append(val);
+            return;
+        }
+
+        Node<T>node=new Node<>(val);
+
+        int i=0;
+        Node<T>curr=head;
+        while(i<ind)
+        {
+            curr=curr.next;
+            ++i;
+        }
+
+        node.next=curr;
+        node.prev=curr.prev;
+        curr.prev=node;
+        node.prev.next=node;
+    }
+
     public int search(T val)
     {
         int ind=0;
@@ -96,7 +128,7 @@ public class Container <T>
     public T getByIndex(int ind)
     {
         if(ind>=size || ind<0)
-            throw new ArrayIndexOutOfBoundsException("Индекс превышает размерность контейнера.");
+            throw new ArrayIndexOutOfBoundsException();
         int i=0;
         Node<T>curr=head;
         while(i<ind)
@@ -111,7 +143,7 @@ public class Container <T>
     public void removeByIndex(int ind)
     {
         if(ind>=size || ind<0)
-            throw new IndexOutOfBoundsException("Индекс превышает размерность контейнера.");
+            throw new IndexOutOfBoundsException();
 
         if(ind==0)
         {
@@ -134,19 +166,7 @@ public class Container <T>
         remove(curr);
     }
 
-//    public T getByValue(T val)
-//    {
-//        Node<T>curr=head;
-//        while(curr!=null)
-//        {
-//            if(curr.getValue().equals(val))
-//                return curr.getValue();
-//            curr = curr.next;
-//        }
-//        return null;
-//    }
-
-    public void printContainer()
+    public void print()
     {
         Node<T> curr=head;
         while(curr!=null)
@@ -154,6 +174,18 @@ public class Container <T>
             System.out.print(curr+" ");
             curr=curr.next;
         }
+        System.out.println();
+    }
+
+    public void printReverse()
+    {
+        Node<T> curr=tail;
+        while(curr!=null)
+        {
+            System.out.print(curr+" ");
+            curr=curr.prev;
+        }
+        System.out.println();
     }
 
     public void removeFromHead()
@@ -197,5 +229,11 @@ public class Container <T>
         del.next=null;
         del.prev=null;
         --size;
+    }
+
+    public void clearContainer()
+    {
+        head=null;
+        tail=null;
     }
 }

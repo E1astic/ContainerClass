@@ -1,3 +1,5 @@
+package org.example;
+
 public class Node<T>{
     private T value;
     public Node next;

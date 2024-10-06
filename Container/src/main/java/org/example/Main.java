@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+package org.example;
 
 public class Main
 {
@@ -11,7 +10,8 @@ public class Main
         container.addToHead("second");
         container.append("third");
         System.out.print("after inserts: ");
-        container.print();
+        System.out.println(container);
+
 
         //УДАЛЕНИЕ
         container.removeByIndex(0);

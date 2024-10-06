@@ -1,8 +1,15 @@
+package org.example;
+
 public class Container <T>
 {
     private Node<T> head;
     private Node<T> tail;
     private int size=0;
+
+    public Node<T> getHead()
+    {
+        return head;
+    }
 
     public Container()
     {
@@ -38,6 +45,11 @@ public class Container <T>
         size=2;
     }
 
+    public int size()
+    {
+        return size;
+    }
+
     public boolean isEmpty()
     {
         if(head==null)
@@ -45,6 +57,63 @@ public class Container <T>
         return false;
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder result=new StringBuilder("[");
+        Node<T>curr=head;
+        while(curr!=null)
+        {
+            if(curr.next==null)
+                result.append(curr.getValue().toString()+"]");
+            else
+                result.append(curr.getValue()+", ");
+
+            curr=curr.next;
+        }
+        return result.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this==obj)
+            return true;
+        if(this.getClass()!=obj.getClass() || obj==null)
+            return false;
+
+        Container<T> other=null;
+        try
+        {
+            other = (Container<T>) obj;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+
+        if(this.size()!=other.size())
+        {
+            return false;
+        }
+
+        Node<T>currHead=this.getHead();
+        Node<T>otherHead=other.getHead();
+
+        while(currHead!=null)
+        {
+            if(!currHead.getValue().equals(otherHead.getValue()))
+            {
+                return false;
+            }
+            currHead=currHead.next;
+            otherHead=otherHead.next;
+        }
+
+        return true;
+    }
+
+    // добавление элемента в начало списка
     public void addToHead(T val)
     {
         Node<T>node=new Node<>(val);
@@ -62,6 +131,7 @@ public class Container <T>
         ++size;
     }
 
+    // добавление элемента в конец списка
     public void append(T val)
     {
         if(isEmpty())
@@ -79,6 +149,7 @@ public class Container <T>
         ++size;
     }
 
+    // добавление элемента по индексу
     public void insert(int ind, T val)
     {
         if(ind>=size || ind<0)
@@ -111,6 +182,7 @@ public class Container <T>
         node.prev.next=node;
     }
 
+    // поиск элемента (возвращает индекс при его существовании, иначе возвращает -1)
     public int search(T val)
     {
         int ind=0;
@@ -125,6 +197,7 @@ public class Container <T>
         return -1;
     }
 
+    // получение элемента по индексу
     public T getByIndex(int ind)
     {
         if(ind>=size || ind<0)
@@ -140,6 +213,7 @@ public class Container <T>
         return curr.getValue();
     }
 
+    // удаление элемента по индексу
     public void removeByIndex(int ind)
     {
         if(ind>=size || ind<0)
@@ -166,28 +240,7 @@ public class Container <T>
         remove(curr);
     }
 
-    public void print()
-    {
-        Node<T> curr=head;
-        while(curr!=null)
-        {
-            System.out.print(curr+" ");
-            curr=curr.next;
-        }
-        System.out.println();
-    }
-
-    public void printReverse()
-    {
-        Node<T> curr=tail;
-        while(curr!=null)
-        {
-            System.out.print(curr+" ");
-            curr=curr.prev;
-        }
-        System.out.println();
-    }
-
+    // удаление элемента из головы
     public void removeFromHead()
     {
         if(head!=null)
@@ -205,6 +258,7 @@ public class Container <T>
         }
     }
 
+    // удаление элемента из хвоста
     public void removeFromTail()
     {
         if(tail!=null)
@@ -222,6 +276,7 @@ public class Container <T>
         }
     }
 
+    // приватный метод удаления элемента (не первого и не последнего)
     private void remove(Node<T>del)
     {
         del.prev.next=del.next;
@@ -231,6 +286,7 @@ public class Container <T>
         --size;
     }
 
+    // очистка контейнера
     public void clearContainer()
     {
         head=null;

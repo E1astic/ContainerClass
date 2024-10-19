@@ -10,6 +10,10 @@ public class Container <T>
     {
         return head;
     }
+    public Node<T> getTail()
+    {
+        return tail;
+    }
 
     public Container()
     {
@@ -28,6 +32,8 @@ public class Container <T>
     {
         this.head=head;
         this.tail=tail;
+        this.head.next=this.tail;
+        this.tail.prev=this.head;
         size=2;
     }
 
@@ -42,6 +48,8 @@ public class Container <T>
     {
         this.head=new Node<>(head);
         this.tail=new Node<>(tail);
+        this.head.next=this.tail;
+        this.tail.prev=this.head;
         size=2;
     }
 
@@ -65,7 +73,7 @@ public class Container <T>
         while(curr!=null)
         {
             if(curr.next==null)
-                result.append(curr.getValue().toString()+"]");
+                result.append(curr.getValue()+"]");
             else
                 result.append(curr.getValue()+", ");
 
@@ -79,18 +87,10 @@ public class Container <T>
     {
         if(this==obj)
             return true;
-        if(this.getClass()!=obj.getClass() || obj==null)
+        if(obj==null || this.getClass()!=obj.getClass())
             return false;
 
-        Container<T> other=null;
-        try
-        {
-            other = (Container<T>) obj;
-        }
-        catch(Exception e)
-        {
-            return false;
-        }
+        Container<T> other = (Container<T>) obj;
 
         if(this.size()!=other.size())
         {
@@ -154,6 +154,8 @@ public class Container <T>
     {
         if(ind>=size || ind<0)
             throw new IndexOutOfBoundsException();
+
+        ++size;
 
         if(ind==0)
         {

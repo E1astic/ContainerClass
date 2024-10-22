@@ -13,6 +13,7 @@ class ContainerTest
     {
         container=new Container<>(1, 2);
     }
+
     @Test
     void addToHead()
     {
@@ -81,6 +82,16 @@ class ContainerTest
         Node<Integer> expected=new Node<>(1);
         container.removeFromTail();
         Assertions.assertEquals(expected, container.getHead());
+    }
+
+    @Test
+    void clearContainer()
+    {
+        container.clearContainer();
+        boolean isClear=false;
+        if(container.getHead()==null && container.getTail()==null)
+            isClear=true;
+        Assertions.assertEquals(true, isClear);
     }
 
 }
